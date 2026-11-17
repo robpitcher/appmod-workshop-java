@@ -5,7 +5,7 @@
 This document serves as a comprehensive workshop guide that will walk you through the process of modernizing a Java application using GitHub Copilot app modernization. The workshop covers assessment, Java/framework upgrades, health endpoints, and containerization.
 
 **What the modernization Process Will Do:**
-The modernization will transform your application from the outdated technologies to a modern solution. This includes upgrading from Java 8 to Java 21, migrating from Spring Boot 2.x to 3.x, adding health checks, and containerizing the applications.
+The modernization will transform your application from the outdated technologies to a modern solution. This includes upgrading from Java 8 to Java 25, migrating from Spring Boot 2.x to 4.x, adding health checks, and containerizing the applications.
 
 ## Table of Contents
 
@@ -110,7 +110,7 @@ cd appmod-workshop-java
 ```
 
 **Prerequisites**: 
-- [JDK 8](https://learn.microsoft.com/en-us/java/openjdk/download#openjdk-8): Required for running the initial application locally.
+- [JDK 25](https://learn.microsoft.com/en-us/java/openjdk/download#openjdk-25): Required for building and running the application locally (Spring Boot 4.1.2).
 - [Maven 3.6.0+](https://maven.apache.org/install.html): Required to build the application locally.
 - [Docker](https://docs.docker.com/desktop/): Required for running the application locally.
 
@@ -141,7 +141,7 @@ Ready to modernize this application? Follow the step-by-step workshop guide:
 The workshop covers:
 - Installing GitHub Copilot app modernization
 - Assessing your Java application
-- Upgrading runtime & frameworks (Java 8 → 21, Spring Boot 2.x → 3.x)
+- Upgrading runtime & frameworks (Java 8 → 25, Spring Boot 2.x → 4.x)
 - Exposing health endpoints using custom skills
 - Containerizing applications
 
