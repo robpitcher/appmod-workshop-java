@@ -1,0 +1,59 @@
+{
+  "description": "Approved portable cloud-agent checklist. Execute the complete companion plan.md; this is not input to the installed modernization executor and requires no local extension schema.",
+  "metadata": {
+    "language": "java",
+    "planName": "java-spring-upgrade-report-20261116223348",
+    "projectName": "assets-manager-parent",
+    "assessmentReport": "report-20261116223348",
+    "approvedAt": "2026-11-17",
+    "version": "2.0",
+    "executionMode": "cloud-agent-portable",
+    "javaTarget": "25",
+    "springBootTarget": "4.1.2",
+    "springFrameworkTarget": "Spring Boot 4.1.2 BOM-managed; no independent override",
+    "intermediateBootVersions": ["2.7.18", "3.5.16", "4.0.9"],
+    "selectedKbIds": [
+      "java-version-upgrade",
+      "spring-boot-upgrade",
+      "spring-framework-upgrade",
+      "deprecated-api-upgrade"
+    ],
+    "approvalGatesResolved": true,
+    "validationPerformed": false
+  },
+  "tasks": [
+    {
+      "id": "001-baseline-environment",
+      "type": "validation-setup",
+      "description": "Capture baseline and prepare isolated PostgreSQL/RabbitMQ and shared local storage",
+      "requirements": "Follow plan.md section 001. Capture original-stack reactor test commands, exit codes and counts before editing. Probe cloud Docker and Node independently; do not infer availability from the planning machine. Provision only disposable, uniquely named services/test data and dev-profile local storage. Respect configured package feeds; no live AWS/Azure or production resources. Record pre-existing failures without disabling tests. If required infrastructure cannot run, document a blocker; no silent mocks/in-memory acceptance substitute.",
+      "dependencies": [],
+      "status": "pending"
+    },
+    {
+      "id": "002-coordinated-upgrade",
+      "type": "upgrade",
+      "description": "Upgrade parent and web/worker to Java 25 and Boot 4.1.2 with regression tests",
+      "kbId": "spring-boot-upgrade",
+      "requirements": "Follow plan.md section 002 and Testing Strategy. All four selected KB goals are consolidated and approved. Stage Java 17/Boot 2.7.18 as needed, Boot 3.5.16 on Java 17 then 25, Boot 4.0.9 on 25, and final Boot 4.1.2 on 25. Preserve Boot-managed Framework, message contracts, queues/retry/ack behavior and external integrations. Fix required Jakarta/Common Annotations, Hibernate/JPA, Jackson/AMQP, starter and build compatibility only. Retain javax.imageio. Add focused regression/context tests for both modules, wire integration and browser acceptance into Maven verify, and update directly affected CI/scripts/docs. Run affected module tests and full reactor verify at Boot checkpoints; report counts and nonzero exits honestly. No unrelated refactoring, service migration, new features, deployment or application containerization.",
+      "dependencies": ["001-baseline-environment"],
+      "status": "pending"
+    },
+    {
+      "id": "003-security-cve-remediation",
+      "type": "security",
+      "description": "Scan final resolved dependencies and apply minimum compatible patches",
+      "requirements": "Follow plan.md section 003. Scan both modules with current advisory data; record scanner/version/command/database timestamp and scope. Preserve Java 25/Boot 4.1.2/BOM alignment. Do not perform unrelated major dependency upgrades. List residual advisories, severity, affected/fixed versions and reasons. Residual findings are reported, not silently waived or suppressed; they are not an automatic zero-High/Critical gate. Unavailable scans are UNVERIFIED. Rerun affected tests and full reactor verify after patches.",
+      "dependencies": ["002-coordinated-upgrade"],
+      "status": "pending"
+    },
+    {
+      "id": "004-runtime-validation-pr",
+      "type": "validation",
+      "description": "Prove the local end-to-end flow and open one evidence-backed PR",
+      "requirements": "Follow plan.md section 004 and the complete Testing Strategy. Run Maven verify on final dependencies plus the wired focused/context/integration/browser tests. Start both modules with dev profile, isolated real PostgreSQL/RabbitMQ and a shared absolute temporary storage directory. Use a unique valid 1200x800 image: real upload, original byte read-back, worker-generated decodable 600x400 thumbnail within 60 seconds, rendered gallery/detail assertions, and deletion of original/thumbnail. Also verify lifecycle initialization, JPA write/read and existing empty-upload/missing-image behavior. Use UUID data, bounded readiness/polling and scoped teardown. Capture commands/exit codes/counts, resolved versions and browser evidence. Nonzero exit is FAIL; unavailable services/browser validation are BLOCKED/UNVERIFIED, not success. Document unrelated baseline failures and leave blocked PR draft if they prevent acceptance. Open one PR against main, without merging or deploying.",
+      "dependencies": ["003-security-cve-remediation"],
+      "status": "pending"
+    }
+  ]
+}
